@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+}
