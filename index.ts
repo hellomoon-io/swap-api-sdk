@@ -8,7 +8,9 @@ import {
 } from "./model";
 import bs58 from "bs58";
 
-type Endpoint = "/get_quote" | "/get_transaction";
+export * from "./model";
+
+export type Endpoint = "/get_quote" | "/get_transaction";
 
 interface AggApiClient {
   /**
@@ -67,11 +69,17 @@ interface AggApiClient {
   executeTransaction(data: ExecuteTransactionParams): Promise<string>;
 }
 
-const fetchPost = async (baseUrl: string, url: Endpoint, body: any) => {
+const fetchPost = async (
+  baseUrl: string,
+  url: Endpoint,
+  body: any,
+  access_token: string
+) => {
   const response = await fetch(`${baseUrl}${url}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${access_token}`,
     },
     body: JSON.stringify(body),
   });
@@ -94,17 +102,29 @@ const getConnection = (rpcUrl: string) => {
 export const clientFactory = ({
   apiUrl,
   rpcUrl,
-}: Readonly<{ apiUrl: string; rpcUrl: string }>): AggApiClient => {
+  accessToken,
+}: Readonly<{
+  apiUrl: string;
+  rpcUrl: string;
+  accessToken: string;
+}>): AggApiClient => {
   const conn = getConnection(rpcUrl);
+  const baseUrl = apiUrl;
   return {
     getQuote: async (data: GetQuoteRequest) => {
-      return (await fetchPost(apiUrl, "/get_quote", data)) as GetQuoteResponse;
+      return (await fetchPost(
+        baseUrl,
+        "/get_quote",
+        data,
+        accessToken
+      )) as GetQuoteResponse;
     },
     getVersionedTransaction: async (data: GetVersionedTransactionRequest) => {
       return (await fetchPost(
-        apiUrl,
+        baseUrl,
         "/get_transaction",
-        data
+        data,
+        accessToken
       )) as GetTxnResponse;
     },
     convertTransaction: (txn: string): VersionedTransaction => {

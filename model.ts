@@ -40,6 +40,8 @@ export type GetVersionedTransactionRequest = {
   userPubkey: string;
   maxHops?: number; // optional since it has a default
   slippageBps?: number; // optional since it has a default
+  computeBudget?: number,
+  priorityFee?: number,
 };
 
 export type GetTxnResponse = {
