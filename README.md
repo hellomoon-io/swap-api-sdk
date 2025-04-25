@@ -13,16 +13,17 @@ A TypeScript client for interacting with the Swap API on Solana. This client pro
 Installation
 Copy
 ```
-npm install @swap-sdk/client
+npm install @hellomoon/swap-api
 ```
 
 ### Quick Start
 ```
-import { clientFactory } from '@swap-sdk/client';
+import { clientFactory } from '@hellomoon/swap-api';
 
 const client = clientFactory({
     rpcUrl: "YOUR_SOLANA_RPC_URL",
-    apiUrl: "YOUR_CUSTOM_API_URL" 
+    apiUrl: "YOUR_CUSTOM_API_URL",
+    accessToken: "YOUR_ACCESS_TOKEN"
 });
 ```
 
@@ -49,7 +50,9 @@ const txnResponse = await client.getVersionedTransaction({
     amount: "1000000",
     slippageBps: 50,
     userPubkey: "USER_PUBKEY",
-    maxHops: 2
+    maxHops: 2,
+    computeBudget: 1000000,
+    priorityFee: 100000
 });
 
 const versionedTxn = client.convertTransaction(txnResponse.txn);

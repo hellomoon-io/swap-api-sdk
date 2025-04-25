@@ -1,6 +1,6 @@
 {
-  "name": "@swap-sdk/client",
-  "version": "0.0.2",
+  "name": "@hellomoon/swap-api",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "build": "tsc"
