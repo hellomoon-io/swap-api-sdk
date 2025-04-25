@@ -1,5 +1,6 @@
 .env
 DEVNOTES.md
+update-and-publish.sh
 
 key-path
 node_modules/

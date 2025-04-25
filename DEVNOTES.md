@@ -3,14 +3,19 @@
 ### Upgrading to a new version
 
 In order to upgrade to a new version we simply need to do the following:
-1) We need to update the version in the package.json
-   1) if non breaking change, up the end decimal X.X.1 => X.X.2
-   2) If breaking change, up the middle decimal X.1.X => X.2.0
-2) Then publish the new version onto npmjs.com 
- 
 ```shell
-npm publish --access public
+bash update-and-publish.sh -v <patch | minor | major>
 ```
+
+This will up the version based on the type passed to `v`
+
+      # major (1.0.0 -> 2.0.0)
+      # minor (0.1.0 -> 0.2.0)
+      # patch (0.0.1 -> 0.0.2)
+
+Build the project
+
+And then publish it to npmjs.com
 
 ### Managing Files
 This repository uses a `.gitignore` as well as an `.npmignore`.
